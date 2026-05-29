@@ -24,7 +24,7 @@ export async function createBookingCheckoutSession(bookingData: {
       throw new Error("You must be logged in to book a space")
     }
 
-    console.log("[v0] User authenticated for booking:", user.id)
+    console.log("User authenticated for booking:", user.id)
 
     // Ensure profile exists for authenticated user (required for RLS policy: guest_id must equal auth.uid())
     const displayName = user.user_metadata?.full_name || user.email?.split("@")[0] || "User"
@@ -38,7 +38,7 @@ export async function createBookingCheckoutSession(bookingData: {
 
     if (!existingProfile) {
       // Profile doesn't exist, need to create it
-      console.log("[v0] Creating profile for user:", user.id)
+      console.log("Creating profile for user:", user.id)
 
       // Try to create the profile with the user's ID
       const { error: createError } = await supabase
@@ -186,9 +186,9 @@ export async function createBookingCheckoutSession(bookingData: {
       endDateTime = new Date(`${endDateOnly}T12:00:00`)
     }
 
-    // Do NOT create the booking yet - it will be created after payment succeeds via webhook
+    // Do NOT create the booking yet - it will be created after  succeeds via webhook
     // Store booking details in Stripe metadata for the webhook to use
-    console.log("[v0] Preparing booking metadata (not creating booking until payment succeeds)")
+    console.log("[v0] Preparing booking metadata (not creating booking until  succeeds)")
 
     // Create Stripe checkout session WITHOUT creating a booking first
     const totalAmountCents = Math.round(finalAmount * 100) // Convert to cents
@@ -212,8 +212,8 @@ export async function createBookingCheckoutSession(bookingData: {
           quantity: 1,
         },
       ],
-      mode: "payment",
-      payment_method_types: ["card"],
+      mode: "",
+      automatic__methods: { enabled: true },
       metadata: {
         guestId: profileId,
         spaceId: space.id,
