@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Add scrollbar-hide utility for smooth scrolling without visible scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+    /* Updated primary to blue-600 for trust and professionalism */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 98%;
+    /* Updated secondary to soft blue-gray for modern feel */
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 215 25% 27%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    /* Updated accent to bright cyan for energy and creativity */
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    /* Updated border to subtle blue-gray */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
+    /* Updated chart colors to match new palette */
+    --chart-1: 221 83% 53%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 215 25% 27%;
+    --chart-4: 200 98% 39%;
+    --chart-5: 212 100% 47%;
+    --radius: 0.5rem;
+    /* Updated sidebar colors to match new blue theme */
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 215 25% 27%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 199 89% 48%;
+  }
+  .dark {
+    --background: 215 28% 17%;
+    --foreground: 210 40% 98%;
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
+    /* Updated dark mode primary to maintain accessibility */
+    --primary: 210 40% 98%;
+    --primary-foreground: 215 25% 27%;
+    --secondary: 215 28% 25%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 28% 25%;
+    --muted-foreground: 217 10% 64%;
+    /* Updated dark mode accent to bright cyan */
+    --accent: 199 89% 48%;
+    --accent-foreground: 215 28% 17%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 28% 25%;
+    --input: 215 28% 25%;
+    --ring: 199 89% 48%;
+    /* Updated dark mode chart colors */
+    --chart-1: 199 89% 48%;
+    --chart-2: 221 83% 53%;
+    --chart-3: 210 40% 80%;
+    --chart-4: 200 98% 39%;
+    --chart-5: 212 100% 47%;
+    /* Updated dark mode sidebar colors */
+    --sidebar-background: 215 28% 17%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 215 28% 17%;
+    --sidebar-accent: 215 28% 25%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 28% 25%;
+    --sidebar-ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Adding subtle gradient background that transitions to dark slate at bottom */
+  body {
+    @apply text-foreground;
+    background: linear-gradient(
+      to bottom,
+      hsl(0 0% 100%) 0%,
+      hsl(0 0% 100%) 70%,
+      hsl(215 25% 20%) 95%,
+      hsl(215 25% 16%) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+/* Adding custom badge classes with proper contrast for accessibility */
+@layer components {
+  .badge-featured {
+    background-color: #ca8a04 !important;
+    color: white !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .badge-superhost {
+    background-color: #7c3aed !important;
+    color: white !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .badge-instant-book {
+    background-color: #059669 !important;
+    color: white !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .badge-verified {
+    background-color: #059669 !important;
+    color: white !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+  }
+}
