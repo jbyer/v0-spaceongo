@@ -437,7 +437,7 @@ function CheckoutContent() {
                   </div>
                 )}
 
-                {!checkoutError && !stripeError && (
+                {!checkoutError && !stripeError && stripePromise && (
                   <EmbeddedCheckoutProvider stripe={stripePromise} options={checkoutOptions}>
                     <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
