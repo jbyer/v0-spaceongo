@@ -19,7 +19,14 @@ import { format, differenceInDays, differenceInHours } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { useCurrency } from "@/contexts/currency-context"
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = (() => {
+  const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  if (!key) {
+    console.error("[v0] NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set")
+    return null
+  }
+  return loadStripe(key)
+})()
 
 // Helper function to convert 24-hour time to 12-hour format with AM/PM
 const formatTimeTo12Hour = (time: string): string => {
@@ -58,7 +65,15 @@ function CheckoutContent() {
   const [isLoadingSpace, setIsLoadingSpace] = useState(true)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [stripeError, setStripeError] = useState<string | null>(null)
   const checkoutSessionIdRef = useRef<string | null>(null)
+
+  // Check if Stripe is properly configured
+  useEffect(() => {
+    if (!stripePromise || !process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      setStripeError("Stripe is not properly configured. Please contact support.")
+    }
+  }, [])
 
   useEffect(() => {
     const fetchSpaceDetails = async () => {
@@ -403,6 +418,14 @@ function CheckoutContent() {
               {/* </CHANGE> */}
 
               <div id="checkout">
+                {stripeError && (
+                  <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-800">
+                      <strong>Configuration Error:</strong> {stripeError}
+                    </p>
+                  </div>
+                )}
+
                 {checkoutError && (
                   <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-sm text-red-800">
@@ -414,7 +437,7 @@ function CheckoutContent() {
                   </div>
                 )}
 
-                {!checkoutError && (
+                {!checkoutError && !stripeError && (
                   <EmbeddedCheckoutProvider stripe={stripePromise} options={checkoutOptions}>
                     <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
